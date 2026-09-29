@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#cbd0da">
+  <meta name="description" content="Ritual Virtual. Tech bar cultural: música, arte y tecnología en el corazón de Miraflores. Esperanza 335.">
+  <title>Ritual Virtual — Tech Bar Cultural</title>
+  <link rel="icon" type="image/png" href="./logo.png">
+  <link rel="stylesheet" href="./styles.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
+</head>
+<body>
+  <main class="page">
+    <header class="masthead">
+      <img class="logo" src="./logo.png" width="300" height="169" alt="Ritual Virtual" fetchpriority="high">
+      <p class="address">ESPERANZA 335<br>MIRAFLORES</p>
+    </header>
+
+    <section class="hero" aria-labelledby="headline">
+      <div class="portal-shell"><div class="portal" id="portal">
+        <canvas id="cat-canvas" role="img" aria-label="Psicogato 3D: mueve el mouse o toca la pantalla para que te mire"></canvas>
+        <p class="load-status" id="load-status" role="status">DESPERTANDO AL PSICOGATO<span>…</span></p>
+
+      </div>
+      </div>
+      <div class="intro">
+        <div class="title-row" data-reveal><h1 id="headline" aria-label="TECH BAR CULTURAL"><span class="headline-line"><span class="headline-word">TECH BAR</span></span><span class="headline-line"><span class="headline-word">CULTURAL</span></span></h1><span class="spark" aria-hidden="true">✦</span></div>
+        <p class="tagline" data-reveal>DE MÚSICA, ARTE Y TECNOLOGÍA<br class="desktop-break"> EN EL CORAZÓN DE MIRAFLORES</p>
+      </div>
+      <nav class="menus" aria-label="Nuestras cartas">
+        <a href="https://drive.google.com/file/d/1CfWXSDt_Ct_SdxRHz1R-rOTdtIEmz3j3/view" target="_blank" rel="noopener noreferrer" data-reveal><span class="menu-copy"><span class="menu-title"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M4 8h24L16 24 4 8Zm12 16v9m-6 0h12M7 13h18M22 3l-6 13"/></svg><span>CARTA BEBIDAS</span></span><span class="menu-description">COCKTELES - CERVEZAS - TRAGOS</span></span><span class="menu-arrow" aria-hidden="true">→</span></a>
+        <a href="https://drive.google.com/file/d/1dI11kyrlZIbgWgYgq0hIbQi77QvVyJWk/view" target="_blank" rel="noopener noreferrer" data-reveal><span class="menu-copy"><span class="menu-title"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M5 16c0-15 26-15 26 0H5Zm-1 6h28M6 28h24c0 7-24 7-24 0Zm-1-9c4-3 6 3 10 0s7 3 11 0 6 0 6 0M13 10h1m7-1h1"/></svg><span>CARTA COMIDA</span></span><span class="menu-description">PIQUEOS PLATOS POSTRES</span></span><span class="menu-arrow" aria-hidden="true">→</span></a>
+      </nav>
+    </section>
+
+    <section class="reel-section" aria-label="Vive Ritual Virtual">
+      <svg class="clip-definitions" aria-hidden="true" width="0" height="0"><defs><clipPath id="fabric-clip" clipPathUnits="objectBoundingBox"><path id="fabric-path" d="M .06,0 C .3,0 .7,0 .94,0 Q 1,0 1,.04 C 1,.35 1,.65 1,.96 Q 1,1 .94,1 C .7,1 .3,1 .06,1 Q 0,1 0,.96 C 0,.65 0,.35 0,.04 Q 0,0 .06,0 Z"/></clipPath></defs></svg>
+      <div class="reel-stage" id="reel-stage">
+        <div class="reel" id="reel">
+          <video id="ritual-video" playsinline muted loop preload="none" tabindex="0" role="button" aria-label="Reproducir video de Ritual Virtual" aria-pressed="false" data-src="./vid ritual virtual.mp4"></video>
+          <p class="video-error" id="video-error" hidden>No se pudo cargar el video. <a href="./vid ritual virtual.mp4">Abrir video</a></p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <nav class="socials" aria-label="Redes sociales">
+        <a href="https://www.instagram.com/ritual_virtual/" target="_blank" rel="noopener noreferrer" data-reveal>INSTAGRAM</a>
+        <a href="https://www.tiktok.com/@ritualvirtual" target="_blank" rel="noopener noreferrer" data-reveal>TIKTOK</a>
+        <a href="https://www.youtube.com/channel/UC62wPhONHA7vz-Pkopg4UYQ" target="_blank" rel="noopener noreferrer" data-reveal>YOUTUBE</a>
+      </nav>
+    </footer>
+  </main>
+  <noscript><p class="no-script">Activa JavaScript para ver el psicogato y el video. <a href="./vid ritual virtual.mp4">Ver video</a></p></noscript>
+  <script>
+    if (location.protocol === 'file:') {
+      const message = document.querySelector('#load-status');
+      message.innerHTML = 'ABRE LA VISTA PREVIA LOCAL<br><br><a href="http://localhost:4173/">ABRIR RITUAL VIRTUAL</a><br><br><small>Si no abre, ejecuta ABRIR-PREVIEW.cmd en esta carpeta.</small>';
+      const probe = new Image();
+      probe.onload = () => location.replace('http://localhost:4173/');
+      probe.src = 'http://localhost:4173/logo.png?preview=' + Date.now();
+    } else {
+      import('./app.js').catch(error => {
+        console.error(error);
+        const message = document.querySelector('#load-status');
+        message.hidden = false;
+        message.textContent = 'NO SE PUDO CARGAR LA EXPERIENCIA. RECARGA LA PÁGINA.';
+      });
+    }
+  </script>
+</body>
+</html>
