@@ -14,6 +14,7 @@ const hitTester = new THREE.Raycaster();
 let renderFrame = 0, lastTime = 0, elapsed = 0;
 let nextBlink = 3, blinkEnd = 0, doubleBlink = false, secondBlink = false, nextMouth = 6, mouthEnd = 0;
 const pointer = new THREE.Vector2();
+const backdropPointer = new THREE.Vector2();
 const random = (a,b) => a + Math.random()*(b-a);
 const clamp = (x,a,b) => Math.max(a,Math.min(b,x));
 const uniforms = { time:{value:0}, aspect:{value:1}, interaction:{value:new THREE.Vector2()} };
@@ -85,6 +86,7 @@ async function setup(){
     model.position.sub(center);model.scale.setScalar(2.65/Math.max(size.x,size.y));model.position.multiplyScalar(model.scale.x);
     rig=new THREE.Group();spinPivot=new THREE.Group();spinPivot.add(model);rig.add(spinPivot);rig.scale.setScalar(.86);scene.add(rig);
     function resize(){
+      rig.scale.setScalar(matchMedia('(max-width:600px)').matches?.74:.86);
       const w=portal.clientWidth,h=portal.clientHeight;renderer.setSize(w,h,false);camera.aspect=w/h;
       camera.position.set(0,0,Math.max(3.75,1.325/(Math.tan(THREE.MathUtils.degToRad(16))*Math.min(camera.aspect,1)))*1.21);
       camera.lookAt(0,0,0);camera.updateProjectionMatrix();uniforms.aspect.value=w/h;startFrame();
@@ -106,7 +108,7 @@ function draw(now){
     rig.rotation.x=THREE.MathUtils.lerp(rig.rotation.x,-pointer.y*.16,easing);
     rig.rotation.z=THREE.MathUtils.lerp(rig.rotation.z,-pointer.x*.025,easing);
     rig.position.y=Math.sin(elapsed*.85)*.035;
-    uniforms.interaction.value.lerp(pointer,easing);
+    uniforms.interaction.value.lerp(backdropPointer,easing);
     if(elapsed>=nextBlink){eyes.emissiveMap=textures.eye2;blinkEnd=elapsed+random(.10,.16);nextBlink=Infinity;doubleBlink=!secondBlink&&Math.random()<.19;secondBlink=false;}
     if(blinkEnd && elapsed>=blinkEnd){eyes.emissiveMap=textures.eye1;blinkEnd=0;nextBlink=elapsed+(doubleBlink?.17:random(2.5,6));secondBlink=doubleBlink;doubleBlink=false;}
     if(elapsed>=nextMouth){mouth.map=textures.mouth2;mouthEnd=elapsed+random(.22,.5);nextMouth=Infinity;}
@@ -115,7 +117,8 @@ function draw(now){
   if(spinTime!==null){
     spinTime+=dt;
     const progress=Math.min(spinTime/spinDuration,1);
-    const ease=progress<.5?4*progress*progress*progress:1-Math.pow(-2*progress+2,3)/2;
+    // Zero velocity and acceleration at both ends; parent tracking stays continuous.
+    const ease=progress*progress*progress*(progress*(progress*6-15)+10);
     spinPivot.rotation.y=paused?0:Math.PI*2*ease;
     eyes.emissiveMap=textures.eye2;
     if(progress===1){
@@ -150,9 +153,22 @@ portal.addEventListener('pointerup',event=>{
     spinTime=0;eyes.emissiveMap=textures.eye2;portal.dataset.interaction='spinning';startFrame();
   }else previousTap={x:event.clientX,y:event.clientY,time:now};
 },{passive:true});
-window.addEventListener('pointermove',event=>{if(paused)return;const r=portal.getBoundingClientRect();pointer.set(clamp((event.clientX-r.left)/r.width*2-1,-1,1),clamp(1-(event.clientY-r.top)/r.height*2,-1,1));},{passive:true});
-window.addEventListener('pointerup',event=>{if(event.pointerType==='touch')pointer.set(0,0);},{passive:true});
-document.documentElement.addEventListener('pointerleave',()=>pointer.set(0,0));
+function trackPage(event){
+  if(paused||!event.isPrimary)return;
+  pointer.set(clamp(event.clientX/innerWidth*2-1,-1,1),clamp(1-event.clientY/innerHeight*2,-1,1));
+}
+window.addEventListener('pointermove',trackPage,{passive:true});
+window.addEventListener('pointerdown',trackPage,{passive:true});
+// The last touch remains the gaze target after release. Background input stays local.
+function trackBackdrop(event){
+  if(paused||!event.isPrimary)return;
+  const r=portal.getBoundingClientRect();
+  backdropPointer.set(clamp((event.clientX-r.left)/r.width*2-1,-1,1),clamp(1-(event.clientY-r.top)/r.height*2,-1,1));
+}
+portal.addEventListener('pointermove',trackBackdrop,{passive:true});
+portal.addEventListener('pointerdown',trackBackdrop,{passive:true});
+portal.addEventListener('pointerleave',()=>backdropPointer.set(0,0));
+document.documentElement.addEventListener('pointerleave',event=>{if(event.pointerType==='mouse')pointer.set(0,0);});
 new IntersectionObserver(([entry])=>{visible=entry.isIntersecting;if(visible)startFrame();},{rootMargin:'80px'}).observe(portal);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)startFrame();else video.pause();});
 document.querySelector('#cat-canvas').addEventListener('webglcontextlost',event=>{event.preventDefault();status.hidden=false;status.textContent='RECARGA PARA VOLVER A VER AL PSICOGATO.';});
@@ -190,6 +206,17 @@ function updateScroll(){
 function queueScroll(){if(!scrollFrame)scrollFrame=requestAnimationFrame(updateScroll);}
 window.addEventListener('scroll',queueScroll,{passive:true});window.addEventListener('resize',queueScroll);updateScroll();
 // Reveal only after the observer is ready; content stays readable without JavaScript.
-const revealObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting){entry.target.classList.add('revealed');revealObserver.unobserve(entry.target);}}},{threshold:.12,rootMargin:'0px 0px -24px 0px'});
-document.querySelectorAll('[data-reveal]').forEach(element=>{if(!media.matches){element.classList.add('reveal-ready');revealObserver.observe(element);}});
+const revealElements=document.querySelectorAll('[data-reveal]');
+const revealObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(entry.isIntersecting&&entry.intersectionRatio>=.12)entry.target.classList.add('revealed');}},{threshold:.12,rootMargin:'0px 0px -24px 0px'});
+// Reset only once the whole element leaves an expanded viewport: no edge flicker.
+const resetObserver=new IntersectionObserver(entries=>{for(const entry of entries){if(!entry.isIntersecting)entry.target.classList.remove('revealed');}},{threshold:0,rootMargin:'160px 0px 160px 0px'});
+function configureReveals(){
+  revealObserver.disconnect();resetObserver.disconnect();
+  revealElements.forEach(element=>{
+    element.classList.toggle('reveal-ready',!media.matches);
+    if(media.matches)element.classList.add('revealed');
+    else{revealObserver.observe(element);resetObserver.observe(element);}
+  });
+}
+configureReveals();media.addEventListener('change',configureReveals);
 setup();

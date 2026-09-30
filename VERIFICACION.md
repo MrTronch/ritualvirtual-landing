@@ -24,3 +24,16 @@ Probada en 1440, 390 y 320 px de ancho: header visible en top=0 durante el scrol
 ## Revisión 3 — apertura local y animación
 
 El archivo abierto con file:// no puede cargar módulos/GLB mediante fetch en Chrome. Se añadió una detección previa que muestra instrucciones y redirige a localhost si responde el logo. El lanzador espera a que el servidor responda antes de abrir el navegador. Se verificó en la vista previa integrada la carga correcta del GLB y el shader acuático reforzado. El título activa headline-arrive con un desfase de 0,18 s entre líneas al entrar en pantalla. Chrome no estaba disponible en la conexión de automatización de esta sesión; la causa se identificó en la URL de la captura del usuario.
+
+
+## Revisión 5 — ajustes solicitados sin rediseño
+
+- Desktop: header 140,65625 px y visor 585 px, sin cambios respecto del estado previo. Ancho del título anterior 634,40625 px y actual 634,421875 px en el mismo viewport.
+- Mobile: 390 y 320 px probados en navegador con viewport emulado. Header 73,34375 px; logo 116 px. Sin scroll horizontal y GIF dentro de su espacio; el título no se desplaza. El visor mantiene su tamaño; escala del gato .74 en mobile y .86 en desktop.
+- Fuente local WOFF2 precargada, con el mismo archivo para todas las pantallas. No hay CDN ni librerías nuevas de ejecución.
+- Prueba automatizada de la lógica con eventos touch: último toque retenido tras soltar, mirada global independiente del shader local. No es prueba en un teléfono físico.
+- Giro con quintic ease-in-out, cierre de ojos y retorno: el mayor paso angular en la transición final del test fue 0,00149 rad. Tracking del grupo padre continuo, sin reiniciar la orientación.
+- Reentrada observada en el navegador: título rearmado al salir y animación headline-arrive-mobile activada al regresar. Zona de reset de 160 px para evitar parpadeos en el borde.
+- Seis frames, transparencia y loop del GIF inspeccionados; archivo original sin cambios.
+- Ambos enlaces /preview abrieron sus imágenes en el visor de Drive. No se solicitó inicio de sesión durante esa prueba; no se garantiza el comportamiento de asociaciones de apps en todos los móviles.
+- Sin errores en la consola de la revisión final. Se conserva el límite de resolución del canvas, suspensión fuera de pantalla y video nativo. No se realizó benchmark en hardware móvil físico.

@@ -7,7 +7,8 @@
   <meta name="description" content="Ritual Virtual. Tech bar cultural: música, arte y tecnología en el corazón de Miraflores. Esperanza 335.">
   <title>Ritual Virtual — Tech Bar Cultural</title>
   <link rel="icon" type="image/png" href="./logo.png">
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="preload" href="./fonts/ritual-headline-black.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="./styles.css?v=20260929-7">
   <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
@@ -25,12 +26,12 @@
       </div>
       </div>
       <div class="intro">
-        <div class="title-row" data-reveal><h1 id="headline" aria-label="TECH BAR CULTURAL"><span class="headline-line"><span class="headline-word">TECH BAR</span></span><span class="headline-line"><span class="headline-word">CULTURAL</span></span></h1><span class="spark" aria-hidden="true">✦</span></div>
+        <div class="title-row" data-reveal><h1 id="headline" aria-label="TECH BAR CULTURAL"><span class="headline-line"><span class="headline-word">TECH BAR</span></span><span class="headline-line"><span class="headline-word">CULTURAL</span></span></h1><img class="spark character-cycle" src="./personajes-ritual.gif" width="350" height="350" alt="" aria-hidden="true"></div>
         <p class="tagline" data-reveal>DE MÚSICA, ARTE Y TECNOLOGÍA<br class="desktop-break"> EN EL CORAZÓN DE MIRAFLORES</p>
       </div>
       <nav class="menus" aria-label="Nuestras cartas">
-        <a href="https://drive.google.com/file/d/1CfWXSDt_Ct_SdxRHz1R-rOTdtIEmz3j3/view" target="_blank" rel="noopener noreferrer" data-reveal><span class="menu-copy"><span class="menu-title"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M4 8h24L16 24 4 8Zm12 16v9m-6 0h12M7 13h18M22 3l-6 13"/></svg><span>CARTA BEBIDAS</span></span><span class="menu-description">COCKTELES - CERVEZAS - TRAGOS</span></span><span class="menu-arrow" aria-hidden="true">→</span></a>
-        <a href="https://drive.google.com/file/d/1dI11kyrlZIbgWgYgq0hIbQi77QvVyJWk/view" target="_blank" rel="noopener noreferrer" data-reveal><span class="menu-copy"><span class="menu-title"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M5 16c0-15 26-15 26 0H5Zm-1 6h28M6 28h24c0 7-24 7-24 0Zm-1-9c4-3 6 3 10 0s7 3 11 0 6 0 6 0M13 10h1m7-1h1"/></svg><span>CARTA COMIDA</span></span><span class="menu-description">PIQUEOS PLATOS POSTRES</span></span><span class="menu-arrow" aria-hidden="true">→</span></a>
+        <a href="https://drive.google.com/file/d/1CfWXSDt_Ct_SdxRHz1R-rOTdtIEmz3j3/preview" target="_blank" rel="noopener noreferrer" data-reveal><span class="menu-copy"><span class="menu-title"><svg viewBox="0 0 32 36" aria-hidden="true"><path d="M4 8h24L16 24 4 8Zm12 16v9m-6 0h12M7 13h18M22 3l-6 13"/></svg><span>CARTA BEBIDAS</span></span><span class="menu-description">COCKTELES - CERVEZAS - TRAGOS</span></span><span class="menu-arrow" aria-hidden="true">→</span></a>
+        <a href="https://drive.google.com/file/d/1dI11kyrlZIbgWgYgq0hIbQi77QvVyJWk/preview" target="_blank" rel="noopener noreferrer" data-reveal><span class="menu-copy"><span class="menu-title"><svg viewBox="0 0 36 36" aria-hidden="true"><path d="M5 16c0-15 26-15 26 0H5Zm-1 6h28M6 28h24c0 7-24 7-24 0Zm-1-9c4-3 6 3 10 0s7 3 11 0 6 0 6 0M13 10h1m7-1h1"/></svg><span>CARTA COMIDA</span></span><span class="menu-description">PIQUEOS PLATOS POSTRES</span></span><span class="menu-arrow" aria-hidden="true">→</span></a>
       </nav>
     </section>
 
@@ -61,7 +62,7 @@
       probe.onload = () => location.replace('http://localhost:4173/');
       probe.src = 'http://localhost:4173/logo.png?preview=' + Date.now();
     } else {
-      import('./app.js').catch(error => {
+      import('./app.js?v=20260929-7').catch(error => {
         console.error(error);
         const message = document.querySelector('#load-status');
         message.hidden = false;

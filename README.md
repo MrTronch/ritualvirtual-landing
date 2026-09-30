@@ -14,7 +14,7 @@ El GLB y los módulos necesitan HTTP. Si abres `index.html` con doble clic, inte
 2. En Settings → Pages elige Deploy from a branch, la rama `main` y `/ (root)`.
 3. Todas las rutas son relativas: también funciona en `usuario.github.io/repositorio/`.
 
-No se ha publicado ni creado un repositorio desde esta demo. Para publicar solo hacen falta `index.html`, `styles.css`, `app.js`, `vendor/`, `logo.png`, el GLB, `texturas psicogato/`, el MP4 y `.nojekyll`.
+No se ha publicado ni creado un repositorio desde esta demo. Para publicar solo hacen falta `index.html`, `styles.css`, `app.js`, `vendor/`, `fonts/`, `personajes-ritual.gif`, `logo.png`, el GLB, `texturas psicogato/`, el MP4 y `.nojekyll`.
 
 ## Edición
 
@@ -28,3 +28,16 @@ El video se carga cerca de su sección, se reproduce sin sonido y se pausa fuera
 La transición del reel deforma su contorno y orientación con el scroll, manteniendo la reproducción nativa del video para reducir el costo en móvil. No es una simulación física de tela.
 
 Three.js 0.180.0 se incluye localmente en `vendor/`, bajo licencia MIT (`vendor/LICENSE`). No hay dependencias de CDN ni instalación de paquetes para usar la página.
+
+
+## Ajustes responsive e interacción
+
+El header y el gato se reducen solo hasta 600 px de ancho. La mirada usa mouse o último touch del viewport completo; el fondo conserva una entrada independiente dentro del visor y queda recortado a su contorno. El giro usa aceleración y frenado suaves sobre un grupo separado del tracking.
+
+Las entradas se repiten al volver: se muestran con un 12 % de intersección y se rearman solo al salir por completo del viewport ampliado en 160 px. Las animaciones y estilos originales se mantienen.
+
+El GIF original `personajes-ritual.gif` sustituye la estrella. Conserva sus seis cuadros de 750 ms, transparencia y loop continuo. No se modificó el archivo.
+
+El título usa una webfont WOFF2 local derivada de Archivo Black, de peso negro y medidas equivalentes al aspecto desktop anterior. Ver `fonts/README.md` y `fonts/OFL.txt`. No depende de fuentes del sistema ni de CDN.
+
+Las cartas usan `/preview` de Google Drive en pestaña nueva. Se verificó la carga de ambos visores web. La asociación de enlaces a apps depende también del navegador y del sistema del visitante; los archivos deben continuar siendo públicos.
