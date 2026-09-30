@@ -71,3 +71,8 @@ h1{font-family:'Ritual Headline',Arial,Helvetica,sans-serif}
  .portal-shell{border-radius:32px}
  .character-cycle{width:clamp(35px,11vw,55px);flex-shrink:1;min-width:0}
 }
+
+/* Enlarge the GIF artwork without changing the title layout or entrance transform. */
+.character-cycle{scale:3;transform-origin:100% 50%}
+@media(max-width:600px){.character-cycle{translate:38px 0}}
+@media(max-width:360px){.character-cycle{scale:2.6;translate:26px 0}}
