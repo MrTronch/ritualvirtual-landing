@@ -21,7 +21,7 @@
 .title-row{display:flex;align-items:center;justify-content:space-between;gap:24px}
 h1{font-size:clamp(54px,9.6vw,114px);letter-spacing:-.055em;flex-shrink:0}
 .spark{font-size:clamp(52px,10vw,120px);line-height:1;text-shadow:-4px 5px var(--green);font-family:Arial,sans-serif}
-.tagline{font-weight:700;font-size:clamp(16px,2.5vw,28px);line-height:1.3;margin:30px 0 0;letter-spacing:.055em}
+.tagline{font-weight:700;font-size:clamp(16px,2.5vw,28px);line-height:1.3;margin:16px 0 0;letter-spacing:.055em}
 .menus{padding:0 4%}
 .menus a{display:flex;justify-content:space-between;gap:24px;padding:24px 0;letter-spacing:0;border-top:3px solid var(--ink);transition:color .25s}
 .menus a:last-child{border-bottom:3px solid var(--ink)}
@@ -42,7 +42,7 @@ h1{font-size:clamp(54px,9.6vw,114px);letter-spacing:-.055em;flex-shrink:0}
 @media(max-width:600px){
  .masthead{padding:8px 0 10px}.masthead .logo{width:130px}.masthead .address{font-size:14px}.hero{padding-top:12px}
  .intro{padding:30px 4% 22px}.title-row{gap:10px}h1{font-size:clamp(39px,10.25vw,62px)}.spark{font-size:clamp(35px,11vw,55px);text-shadow:-2px 3px var(--green)}
- .tagline{font-size:clamp(13px,3.3vw,20px);letter-spacing:.035em;margin-top:23px;line-height:1.35}
+ .tagline{font-size:clamp(13px,3.3vw,20px);letter-spacing:.035em;margin-top:12px;line-height:1.35}
  .menus a{padding:20px 0;gap:12px;border-width:2px}.menus a:last-child{border-width:2px}.menu-copy{gap:9px}.menu-title{font-size:clamp(19px,5.3vw,31px);gap:12px;white-space:nowrap}.menu-title svg{width:21px;height:26px}.menu-description{font-size:clamp(10px,2.65vw,15px);letter-spacing:.045em}.menu-arrow{width:45px;height:45px;font-size:34px}
  .reel-section{padding:18px 0 42px}.portal-shell::before{inset:-7px -5px -12px;filter:blur(9px)}.portal-shell::after{right:-5px;bottom:-15px;padding:1px}
 }
@@ -76,3 +76,11 @@ h1{font-family:'Ritual Headline',Arial,Helvetica,sans-serif}
 .character-cycle{scale:3;transform-origin:100% 50%}
 @media(max-width:600px){.character-cycle{translate:38px 0}}
 @media(max-width:360px){.character-cycle{scale:2.6;translate:26px 0}}
+
+/* Final WhatsApp call to action, separate from the social navigation. */
+.contact-finale{padding:0 0 56px}
+.contact-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;min-height:142px;padding:28px 36px;border-radius:24px;background:var(--green);color:var(--ink);font-family:'Ritual Headline',Arial,sans-serif;font-size:clamp(28px,4.8vw,56px);line-height:1.05;letter-spacing:-.045em;text-decoration:none;touch-action:manipulation;transition:transform .28s ease,background .28s ease,box-shadow .28s ease}
+.contact-arrow{font-family:Arial,sans-serif;font-weight:400;font-size:1.1em;line-height:1;transition:transform .28s ease}
+@media(hover:hover){.contact-cta:hover{transform:translateY(-3px);background:#29ff8f;box-shadow:0 10px 0 #080909}.contact-cta:hover .contact-arrow{transform:translate(5px,-5px)}}
+.contact-cta:active{transform:scale(.975);background:#00d969;box-shadow:none}.contact-cta:active .contact-arrow{transform:translate(3px,-3px)}
+@media(max-width:600px){.contact-finale{padding-bottom:32px}.contact-cta{min-height:100px;padding:22px 18px;border-radius:20px;font-size:clamp(23px,6.6vw,34px);gap:12px}}
