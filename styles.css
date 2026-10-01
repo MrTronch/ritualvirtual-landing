@@ -79,8 +79,10 @@ h1{font-family:'Ritual Headline',Arial,Helvetica,sans-serif}
 
 /* Final WhatsApp call to action, separate from the social navigation. */
 .contact-finale{padding:0 0 56px}
-.contact-cta{display:flex;align-items:center;justify-content:space-between;gap:20px;width:100%;min-height:142px;padding:28px 36px;border-radius:24px;background:var(--green);color:var(--ink);font-family:'Ritual Headline',Arial,sans-serif;font-size:clamp(28px,4.8vw,56px);line-height:1.05;letter-spacing:-.045em;text-decoration:none;touch-action:manipulation;transition:transform .28s ease,background .28s ease,box-shadow .28s ease}
+.contact-cta{display:flex;align-items:center;justify-content:center;gap:24px;width:100%;min-height:142px;padding:28px 36px;border-radius:24px;background:var(--green);color:var(--ink);font-family:'Ritual Headline',Arial,sans-serif;font-size:clamp(28px,4.8vw,56px);line-height:1.05;letter-spacing:-.045em;text-decoration:none;touch-action:manipulation;transition:transform .28s ease,background .28s ease,box-shadow .28s ease}
 .contact-arrow{font-family:Arial,sans-serif;font-weight:400;font-size:1.1em;line-height:1;transition:transform .28s ease}
 @media(hover:hover){.contact-cta:hover{transform:translateY(-3px);background:#29ff8f;box-shadow:0 10px 0 #080909}.contact-cta:hover .contact-arrow{transform:translate(5px,-5px)}}
 .contact-cta:active{transform:scale(.975);background:#00d969;box-shadow:none}.contact-cta:active .contact-arrow{transform:translate(3px,-3px)}
 @media(max-width:600px){.contact-finale{padding-bottom:32px}.contact-cta{min-height:100px;padding:22px 18px;border-radius:20px;font-size:clamp(23px,6.6vw,34px);gap:12px}}
+
+.contact-whatsapp{display:block;width:1.3em;height:1.3em;flex:0 0 auto}
