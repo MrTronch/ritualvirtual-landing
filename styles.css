@@ -86,3 +86,13 @@ h1{font-family:'Ritual Headline',Arial,Helvetica,sans-serif}
 @media(max-width:600px){.contact-finale{padding-bottom:32px}.contact-cta{min-height:100px;padding:22px 18px;border-radius:20px;font-size:clamp(23px,6.6vw,34px);gap:12px}}
 
 .contact-whatsapp{display:block;width:1.3em;height:1.3em;flex:0 0 auto}
+
+/* User-supplied banner layers share a 1536 × 512 composition. */
+.game-promo{margin:0 0 clamp(28px,5vw,60px)}
+.game-banner{position:relative;isolation:isolate;display:block;overflow:hidden;width:100%;aspect-ratio:3/1;border-radius:clamp(12px,2vw,28px);background:#180c36;color:#fff;text-decoration:none;outline-offset:5px}
+.game-banner .game-banner-layer{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;pointer-events:none;image-rendering:auto}
+.game-banner-background{z-index:0}.game-banner-character{z-index:1}.game-banner-logo{z-index:2}.game-banner-button{z-index:3;transition:filter .2s ease}
+.game-banner:focus-visible{outline:3px solid var(--green)}
+@media(hover:hover){.game-banner:hover .game-banner-button{filter:brightness(1.18)}}
+.game-banner:active .game-banner-button{filter:brightness(.9)}
+@media(prefers-reduced-motion:reduce){.game-banner-button{transition:none}}
